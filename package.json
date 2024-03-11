@@ -1,10 +1,10 @@
 {
-  "name": "@veryphatic/directus-webcam-capture-interface",
+  "name": "directus-webcam-capture-interface",
   "description": "Directus interface extension to capture images from a webcam",
   "icon": "extension",
   "author": {
     "name": "Nathen Street",
-    "url": "https://github.com/veryphatic/"
+    "url": "https://github.com/veryphatic/directus-webcam-capture-interface"
   },
   "license": "LGPL-3.0-or-later",
   "version": "1.0.0",
