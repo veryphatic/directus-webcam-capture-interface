@@ -32,8 +32,6 @@ const props = withDefaults(
   },
 );
 
-console.log("IntefaceProps", props.device_width);
-
 const emit = defineEmits(["input"]);
 const {
   collection,
@@ -45,9 +43,8 @@ const {
 } = toRefs(props);
 const showLiveViewCaptureDrawer = ref(false);
 
-console.log("deviceWId", deviceWidth.value);
 const { relationInfo } = useRelationM2M(collection, field);
-console.log("relationInfo", relationInfo);
+
 const {
   fetchCollectionItems,
   loading,
@@ -72,26 +69,12 @@ const value = computed({
     emit("input", val);
   },
 });
-console.log("value", value);
-
-watch(value, (newValue, oldValue) => {
-  console.log('value changed', newValue, oldValue)
-})
 
 watch(primaryKey, (newValue, oldValue) => {
-  console.log("primaryKey", primaryKey.value, newValue, oldValue);
   if (newValue !== "+") {
     fetchCollectionItems();
   }
 });
-
-watch(props, (newValue, oldValue) => {
-  console.log('props changed', newValue, oldValue);
-});
-
-onMounted(() => {
-  console.log('WebCamInterface onMounted', value.value, primaryKey.value, props.value)
-})
 
 // Close ImagePreviewDrawer
 const closeImagePreviewDrawer = () => {
@@ -125,7 +108,6 @@ const updateItem = async (
   // Staged item
   else {
     // update staged object
-    console.log("update staged", formValues);
     updateStagedItem(formValues);
     selectedItem.value = undefined;
   }
@@ -160,11 +142,6 @@ const onItemSaved = (item: FileObject) => {
 // Emit input event for alias (multiple file) types
 const emitUpdate = () => {
   emit("input", {
-    create: createItemsList.value,
-    update: updateItemsList.value,
-    delete: deleteItemsList.value,
-  });
-  console.log("input", {
     create: createItemsList.value,
     update: updateItemsList.value,
     delete: deleteItemsList.value,

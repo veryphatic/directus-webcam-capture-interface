@@ -49,14 +49,6 @@ const uploadFile = async (
   filename_download: string,
   folder: string,
 ) => {
-  console.log(
-    "uploadFile",
-    imageBlob,
-    title,
-    description,
-    filename_download,
-    folder,
-  );
   const formData = new FormData();
   formData.append("title", title);
   formData.append("folder", folder);
