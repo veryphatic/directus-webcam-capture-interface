@@ -1,17 +1,10 @@
-# WebCam Image Capture
+# Webcam Capture Interface
 
-WebCam Image Capture is a Directus interface extension to capture one or more images using a device webcam.
+Webcam Capture Interface is a [Directus](https://directus.io) extension to capture one or more images using a device webcam.
 
-- Is compatible with the Directus Files interface
+- Capture images using a webcam
+- Basic image metadata input fields capture and editing (name and description)
+- Compatible with Directus system files interface
 - User configuration options
     - Root folder - set the default folder for image uploads
     - Camera dimensions - set the device image resolution
-
-
-## Versioning
-
-Tested working with Directus:
-
-- 10.10
-- 10.10.1
-- 10.10.2
