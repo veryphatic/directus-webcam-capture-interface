@@ -1,5 +1,5 @@
 {
-  "name": "@veryphatic/directus-webcam-capture-interface",
+  "name": "directus-webcam-capture-interface",
   "description": "Directus interface extension to capture images from a webcam",
   "icon": "extension",
   "author": "Nathen Street (https://github.com/veryphatic/directus-webcam-capture-interface)",
