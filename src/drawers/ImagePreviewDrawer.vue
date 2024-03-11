@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { toRefs, ref, computed } from "vue";
-import { useApi } from "@directus/extensions-sdk";
 import { FileObjectItem } from "../types";
-import { onMounted } from "vue";
 
 const props = defineProps<{
   fileObject: FileObjectItem;
@@ -13,8 +11,6 @@ const emit = defineEmits<{
   (e: "close"): void;
 }>();
 
-const api = useApi();
-const apiHeaders = ref();
 const { fileObject } = toRefs(props);
 const showSelectedItemDrawer = ref<boolean>(true);
 const hasChanged = ref<boolean>(false);
@@ -22,15 +18,8 @@ const hasChanged = ref<boolean>(false);
 const localTitle = ref(fileObject.value?.title ?? "");
 const localDescription = ref(fileObject.value?.description ?? "");
 
-onMounted(async () => {
-  apiHeaders.value = await api.head(window.location.origin);
-});
-
 const previewImageUrl = computed(() => {
-  if (!apiHeaders.value) return;
-  const token =
-    apiHeaders.value.config.headers.getAuthorization() as unknown as string;
-  return `${window.location.origin}/assets/${fileObject.value.id}?access_token=${token.split(" ")[1]}`;
+  return `${window.location.origin}/assets/${fileObject.value.id}`;
 });
 
 const closeDrawer = () => {

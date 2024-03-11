@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, onMounted } from "vue";
-import { useApi } from "@directus/extensions-sdk";
+import { computed } from "vue";
 import { FileObjectItem } from "../types";
 
 const props = defineProps<{
@@ -13,18 +12,8 @@ const emit = defineEmits<{
   (e: "undelete"): null;
 }>();
 
-const api = useApi();
-const apiHeaders = ref();
-
-onMounted(async () => {
-  apiHeaders.value = await api.head(window.location.origin);
-});
-
 const previewImageUrl = computed(() => {
-  if (!apiHeaders.value) return;
-  const token =
-    apiHeaders.value.config.headers.getAuthorization() as unknown as string;
-  return `${window.location.origin}/assets/${props.item.id}?access_token=${token.split(" ")[1]}`;
+  return `${window.location.origin}/assets/${props.item.id}`;
 });
 </script>
 

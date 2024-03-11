@@ -3,7 +3,7 @@ import WebCamInterface from './components/WebCamInterface.vue';
 import PreviewSVG from './icons/material_design_camera_video.svg';
 
 export default defineInterface({
-	id: 'veryphatic-directus-webcam-interface',
+	id: 'veryphatic-webcam-interface',
 	name: 'Webcam image capture',
 	icon: 'camera',
 	description: 'Capture images using the webcam',

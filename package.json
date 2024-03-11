@@ -1,5 +1,5 @@
 {
-  "name": "directus-webcam-capture-interface",
+  "name": "directus-extension-webcam-capture-interface",
   "description": "Directus interface extension to capture images from a webcam",
   "icon": "extension",
   "author": "Nathen Street (https://github.com/veryphatic/directus-webcam-capture-interface)",
@@ -12,11 +12,14 @@
     "directus-webcam-interface"
   ],
   "type": "module",
+  "files": [
+		"dist"
+	],
   "directus:extension": {
     "type": "interface",
     "path": "dist/index.js",
     "source": "src/index.ts",
-    "host": "^10.3.0"
+    "host": "^10.10.0"
   },
   "scripts": {
     "build": "directus-extension build",
@@ -26,17 +29,16 @@
     "format": "prettier .  --write"
   },
   "devDependencies": {
-    "@directus/extensions-sdk": "10.3.0",
+    "@directus/extensions-sdk": "11.0.1",
     "@directus/types": "^10.1.6",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vue": "^9.20.1",
     "prettier": "^3.2.4",
     "rollup-plugin-svg-import": "^3.0.0",
-    "typescript": "^5.3.3",
-    "vue": "^3.4.7"
+    "typescript": "^5.4.2",
+    "vue": "^3.4.21"
   },
-  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/veryphatic/directus-webcam-capture-interface.git"
