@@ -13,6 +13,10 @@ Features include:
     - Root folder: Set the default folder for image uploads.
     - Camera dimensions: Adjust the device image resolution.
 
+### Installation
+
+`npm install directus-extension-webcam-capture-interface`
+
 ### Screngrabs
 
 <figure>
