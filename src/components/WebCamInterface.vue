@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import { ref, toRefs, computed, watch } from "vue";
+import { computed, ref, toRefs, watch } from "vue";
 import { useRelationM2M } from "./../hooks/use-relation-m2m";
 import { useRelatedImages } from "./../hooks/useRelatedImages";
 import ImageList from "./ImageList.vue";
 import ImagePreviewDrawer from "./../drawers/ImagePreviewDrawer.vue";
 import LiveImageDrawer from "./../drawers/LiveImageDrawer.vue";
 import { FileObject, FileObjectItem } from "./../types";
-import { onMounted } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -41,6 +40,7 @@ const {
   device_width: deviceWidth,
   device_height: deviceHeight,
 } = toRefs(props);
+
 const showLiveViewCaptureDrawer = ref(false);
 
 const { relationInfo } = useRelationM2M(collection, field);
@@ -63,14 +63,14 @@ const {
   removeStagedItem,
 } = useRelatedImages(relationInfo, primaryKey);
 
-const value = computed({
-  get: () => props.value,
-  set: (val) => {
-    emit("input", val);
-  },
-});
+// const value = computed({
+//   get: () => props.value,
+//   set: (val) => {
+//     emit("input", val);
+//   },
+// });
 
-watch(primaryKey, (newValue, oldValue) => {
+watch(primaryKey, (newValue) => {
   if (newValue !== "+") {
     fetchCollectionItems();
   }
@@ -126,7 +126,10 @@ const onDeleteItem = async (item: FileObjectItem) => {
 };
 
 const onUndeleteItem = (item: FileObjectItem) => {
-  if (item.itemId) undeleteItem(item);
+  if (!item.itemId) return;
+
+  undeleteItem(item);
+  emitUpdate();
 };
 
 // Called when Live View image is uploaded to files
@@ -139,13 +142,17 @@ const onItemSaved = (item: FileObject) => {
   showLiveViewCaptureDrawer.value = false;
 };
 
-// Emit input event for alias (multiple file) types
-const emitUpdate = () => {
-  emit("input", {
+const inputUpdate = computed(() => {
+  return {
     create: createItemsList.value,
     update: updateItemsList.value,
     delete: deleteItemsList.value,
-  });
+  };
+});
+
+// Emit input event for alias (multiple file) types
+const emitUpdate = () => {
+  emit("input", inputUpdate.value);
 };
 </script>
 

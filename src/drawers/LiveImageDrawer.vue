@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useApi } from "@directus/extensions-sdk";
 import { FileObject } from "./../types";
 import LiveView from "../components/LiveView.vue";
@@ -20,6 +20,29 @@ const drawerOpen = ref<boolean>(true);
 const title = ref<string>("");
 const description = ref<string>("");
 const imageBlob = ref<Blob>();
+const permissionState = ref<PermissionState>();
+const showForm = ref<boolean>(false);
+
+onMounted(async () => {
+  await checkCameraPermission();
+  console.log('cameraPermissionGranted', permissionState.value)
+  if (permissionState.value === 'granted') {
+    console.log('show form')
+    showForm.value = true;
+  }
+});
+
+const checkCameraPermission = async () => {
+  try {
+    const permissionStatus = await navigator.permissions.query({
+      name: "camera",
+    });
+    console.log('permissionStatus', permissionStatus)
+    permissionState.value = permissionStatus.state;
+  } catch (error) {
+    console.error("Error checking camera permission:", error);
+  }
+};
 
 const onUpdateImage = (image: Blob) => {
   imageBlob.value = image;
@@ -48,11 +71,16 @@ const uploadFile = async (
   description: string,
   filename_download: string,
   folder: string,
-) => {
+): Promise<Record<string, any>> => {
+  if (!imageBlob) {
+    console.error("You must provide an image to upload");
+    Promise.resolve({ error: "You must provide an image to upload" });
+  }
+
   const formData = new FormData();
-  formData.append("title", title);
-  formData.append("folder", folder);
-  formData.append("description", description);
+  if (title) formData.append("title", title);
+  if (folder) formData.append("folder", folder);
+  if (description) formData.append("description", description);
   formData.append("image", imageBlob, filename_download);
 
   try {
@@ -86,16 +114,18 @@ const uploadFile = async (
         :deviceHeight="props.deviceHeight"
       />
 
-      <div class="imageMetaForm">
-        <div class="formField">
-          <label>Title (optional)</label>
-          <v-input v-model="title" />
+      <template v-if="showForm">
+        <div class="imageMetaForm">
+          <div class="formField">
+            <label>Title (optional)</label>
+            <v-input v-model="title" />
+          </div>
+          <div class="formField">
+            <label>Description (optional)</label>
+            <v-textarea v-model="description" />
+          </div>
         </div>
-        <div class="formField">
-          <label>Description (optional)</label>
-          <v-textarea v-model="description" />
-        </div>
-      </div>
+      </template>
     </div>
     <template #actions v-if="imageBlob">
       <v-button @click="saveImage">Save Image</v-button>

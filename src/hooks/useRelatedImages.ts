@@ -118,7 +118,8 @@ const useRelatedImages = (
 
   // undelete a saved item
   const undeleteItem = (item: FileObjectItem) => {
-    deleteItemsList.value = deleteItemsList.value.filter(itemId => itemId !== item.itemId)
+    const newList = deleteItemsList.value.filter(itemId => itemId !== item.itemId);
+    deleteItemsList.value = newList
   }
 
   /**
@@ -151,14 +152,10 @@ const useRelatedImages = (
   const stageItem = (item: FileObject, collection: string) => {
     const collectionPrimaryKey = `${collection}_id`;
     const fileRef = {
-      [collectionPrimaryKey]: item.id,
+      [collectionPrimaryKey]: itemId,
       directus_files_id: {
         id: item.id,
-        // keep form value references
-        title: item.title,
-        description: item.description
       },
-      // item: item,
     };
     createItemsList.value.push(fileRef)
   }
