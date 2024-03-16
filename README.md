@@ -3,9 +3,12 @@
 Webcam Capture Interface is a [Directus](https://directus.io) extension to capture one or more images using a device webcam.
 
 - Uses `Multiple files` field
-- Capture images using a webcam
+- Capture images from a live webcam
 - Basic image metadata input fields capture and editing (`name` and `description`)
-- User configuration options
+- UI to request camera permissions
+- previous camera selection stored to localstorage
+- Live and saved UI
+- User configurable options
   - Root folder - set the default folder for image uploads
   - Camera dimensions - set the device image resolution
 
