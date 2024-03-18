@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useApi } from "@directus/extensions-sdk";
 import { FileObject } from "./../types";
 import LiveView from "../components/LiveView.vue";
@@ -20,29 +20,7 @@ const drawerOpen = ref<boolean>(true);
 const title = ref<string>("");
 const description = ref<string>("");
 const imageBlob = ref<Blob>();
-const permissionState = ref<PermissionState>();
-const showForm = ref<boolean>(false);
 
-onMounted(async () => {
-  await checkCameraPermission();
-  console.log('cameraPermissionGranted', permissionState.value)
-  if (permissionState.value === 'granted') {
-    console.log('show form')
-    showForm.value = true;
-  }
-});
-
-const checkCameraPermission = async () => {
-  try {
-    const permissionStatus = await navigator.permissions.query({
-      name: "camera",
-    });
-    console.log('permissionStatus', permissionStatus)
-    permissionState.value = permissionStatus.state;
-  } catch (error) {
-    console.error("Error checking camera permission:", error);
-  }
-};
 
 const onUpdateImage = (image: Blob) => {
   imageBlob.value = image;
@@ -112,9 +90,8 @@ const uploadFile = async (
         @update="onUpdateImage"
         :deviceWidth="props.deviceWidth"
         :deviceHeight="props.deviceHeight"
-      />
-
-      <template v-if="showForm">
+      >
+        <!-- Form slot -->
         <div class="imageMetaForm">
           <div class="formField">
             <label>Title (optional)</label>
@@ -125,7 +102,7 @@ const uploadFile = async (
             <v-textarea v-model="description" />
           </div>
         </div>
-      </template>
+      </LiveView>
     </div>
     <template #actions v-if="imageBlob">
       <v-button @click="saveImage">Save Image</v-button>
