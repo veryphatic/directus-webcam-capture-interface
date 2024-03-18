@@ -25,6 +25,30 @@ const savedImageBlob = ref<Blob>();
 
 const currentViewTab = ref<string>("live_view");
 
+const localStorageKey = "veryphatic-directus-camera";
+
+onMounted(async () => {
+  await checkCameraPermission();
+  if (cameraPermissionGranted.value) {
+    await enumerateDevices();
+    const savedCamera = localStorage.getItem(localStorageKey) ?? null;
+    if (savedCamera) {
+      startStream(savedCamera);
+    }
+  } else {
+    await requestCameraPermission();
+    await enumerateDevices();
+  }
+});
+
+onUnmounted(async () => {
+  await stopVideoStream();
+});
+
+watch(savedImageBlob, (newValue) => {
+  if (newValue) sendUpdates();
+});
+
 const checkCameraPermission = async () => {
   try {
     const permissionStatus = await navigator.permissions.query({
@@ -69,9 +93,12 @@ const startStream = async (item: string) => {
 
   if (item === null) {
     stopVideoStream();
-    localStorage.removeItem("directus-veryphatic-camera-capture");
+    localStorage.removeItem(localStorageKey);
     return;
   }
+  
+  // save the camera for reuse
+  localStorage.setItem(localStorageKey, item);
 
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -84,9 +111,6 @@ const startStream = async (item: string) => {
     mediaStream.value = stream;
     videoElement.value.srcObject = stream;
     videoElement.value.play();
-
-    // save the camera for reuse
-    localStorage.setItem("directus-veryphatic-web-cam", selectedCamera.value);
   } catch (error) {
     console.error("Error changing camera:", error);
   }
@@ -120,10 +144,6 @@ const takePhoto = () => {
   );
 };
 
-watch(savedImageBlob, (newValue) => {
-  if (newValue) sendUpdates();
-});
-
 const sendUpdates = () => {
   emit("update", savedImageBlob.value as Blob);
 };
@@ -131,25 +151,6 @@ const sendUpdates = () => {
 const retakePhoto = () => {
   currentViewTab.value = "live_view";
 };
-
-onMounted(async () => {
-  await checkCameraPermission();
-  if (cameraPermissionGranted.value) {
-    await enumerateDevices();
-    const savedCamera =
-      localStorage.getItem("directus-veryphatic-camera-capture") ?? null;
-    if (savedCamera) {
-      startStream(savedCamera);
-    }
-  } else {
-    await requestCameraPermission();
-    await enumerateDevices();
-  }
-});
-
-onUnmounted(async () => {
-  await stopVideoStream();
-});
 </script>
 
 <template>
@@ -286,6 +287,9 @@ onUnmounted(async () => {
       </div>
     </template>
   </div>
+  <template v-if="selectedCamera">
+    <slot />
+  </template>
 </template>
 
 <style scoped>
