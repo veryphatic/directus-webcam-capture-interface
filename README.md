@@ -21,15 +21,15 @@ Features include:
 
 <figure>
     <figurecaption>Entrypoint</figurecaption>
-    <img src="./screens/entrypoint.png" />
+    <img src="https://raw.githubusercontent.com/veryphatic/directus-webcam-capture-interface/main/screens/entrypoint.png" />
 </figure>
 <figure>
     <figurecaption>Image listing</figurecaption>
-    <img src="./screens/image_list.png" />
+    <img src="https://raw.githubusercontent.com/veryphatic/directus-webcam-capture-interface/main/screens/image_list.png" />
 </figure>
 <figure>
     <figurecaption>Live video capture</figurecaption>
-    <img src="./screens/live_video.png" />
+    <img src="https://raw.githubusercontent.com/veryphatic/directus-webcam-capture-interface/main/screens/live_video.png" />
 </figure>
 
 ### TODO
