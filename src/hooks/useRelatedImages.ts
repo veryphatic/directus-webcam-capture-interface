@@ -154,7 +154,7 @@ const useRelatedImages = (
     const fileRef = {
       [collectionPrimaryKey]: itemId,
       directus_files_id: {
-        id: item.id,
+        ...item
       },
     };
     createItemsList.value.push(fileRef)

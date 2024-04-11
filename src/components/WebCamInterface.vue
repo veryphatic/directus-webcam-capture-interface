@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, toRefs, watch } from "vue";
+import { computed, ref, toRefs, watch, onMounted } from "vue";
 import { useRelationM2M } from "./../hooks/use-relation-m2m";
 import { useRelatedImages } from "./../hooks/useRelatedImages";
 import ImageList from "./ImageList.vue";
@@ -63,12 +63,17 @@ const {
   removeStagedItem,
 } = useRelatedImages(relationInfo, primaryKey);
 
-// const value = computed({
-//   get: () => props.value,
-//   set: (val) => {
-//     emit("input", val);
-//   },
-// });
+const value = computed({
+  get: () => props.value,
+  set: (val) => {
+    emit("input", val);
+  },
+});
+
+
+onMounted(() => {
+  fetchCollectionItems();
+})
 
 watch(primaryKey, (newValue) => {
   if (newValue !== "+") {
