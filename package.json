@@ -4,7 +4,7 @@
   "icon": "extension",
   "author": "Nathen Street (https://github.com/veryphatic/directus-webcam-capture-interface)",
   "license": "LGPL-3.0-or-later",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "keywords": [
     "directus",
     "directus-extension",
