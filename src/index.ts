@@ -1,6 +1,5 @@
 import { defineInterface } from '@directus/extensions-sdk';
 import WebCamInterface from './components/WebCamInterface.vue';
-import PreviewSVG from './icons/material_design_camera_video.svg';
 
 export default defineInterface({
 	id: 'veryphatic-webcam-interface',
@@ -12,7 +11,6 @@ export default defineInterface({
 	types: ['alias'],
 	localTypes: ['files'],
 	group: 'relational',
-	preview: PreviewSVG,
 	recommendedDisplays: ['related-values'],
 	options: () => {
 		return [
