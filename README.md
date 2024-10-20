@@ -1,23 +1,43 @@
 # Webcam Capture Interface
 
-The Webcam Capture Interface is an extension for [Directus](https://directus.io) designed to capture one or more images using a device webcam.
+The **Webcam Capture Interface** is an extension for [Directus](https://directus.io) designed to capture one or more images using a device's webcam.
 
-Features include:
+## Features
 
-- Utilizes the Multiple files field.
-- Captures images from a live webcam feed.
-- Basic image metadata input fields for capturing and editing (name and description).
-- User-friendly interface for requesting camera permissions.
-- Previous camera selection is stored locally using local storage.
-- User-configurable options include:
-    - Root folder: Set the default folder for image uploads.
-    - Camera dimensions: Adjust the device image resolution.
+- **Multiple Files Field**: Integrates with the Directus multiple files field to store captured images.
+- **Live Webcam Feed**: Captures images directly from a live webcam stream.
+- **Image Metadata**: Includes basic fields for adding and editing image metadata (e.g., name and description).
+- **Camera Permissions**: Requests camera access and handles user permissions gracefully.
+- **Camera Settings Storage**: Remembers the user's previous camera selection using local storage for convenience.
+- **User-Configurable Options**:
+  - **Root Folder**: Set a default folder for uploading captured images.
+  - **Camera Dimensions**: Configure the resolution of the captured images.
 
-### Installation
+## Installation
 
-`npm install directus-extension-webcam-capture-interface`
+To install the extension, run:
 
-### Screngrabs
+```bash
+npm install directus-extension-webcam-capture-interface
+```
+
+## Usage Notes
+
+### Accessing Webcam on Private Networks
+
+To use this extension across a **private network** without HTTPS (which the webcam requires), you'll need to configure Chrome to allow webcam access over an insecure origin. You can do this by enabling the `Insecure origins treated as secure` flag in Chrome.
+
+1. Open Chrome and navigate to `chrome://flags`.
+2. Search for `Insecure origins treated as secure`.
+3. Add your private network address (e.g., `http://192.168.0.1`) to the list of allowed origins.
+
+This will allow webcam functionality to work on your private network without requiring an HTTPS connection.
+
+---
+
+Let me know if you need further adjustments!
+
+### Screens
 
 <figure>
     <figurecaption>Entrypoint</figurecaption>
@@ -31,9 +51,3 @@ Features include:
     <figurecaption>Live video capture</figurecaption>
     <img src="https://raw.githubusercontent.com/veryphatic/directus-webcam-capture-interface/main/screens/live_video.png" />
 </figure>
-
-### TODO
-
-- abilty to zoom into image in live view and capture at set resolution
-- add semantic commit
-- auto semver
