@@ -190,4 +190,7 @@ const emitUpdate = () => {
 .imageList {
   margin-top: 1rem;
 }
+.actions {
+  margin-top: 1rem;
+}
 </style>
