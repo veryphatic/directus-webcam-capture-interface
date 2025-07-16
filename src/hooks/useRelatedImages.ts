@@ -66,9 +66,14 @@ const useRelatedImages = (
     })
   });
 
-  // merge of fetched and to be created items
+  // deduped merge of fetched and to be created items
   const allItems = computed(() => {
-    return [...displayItemsWithEdits.value, ...stagedItems.value];
+    return Array.from(
+    new Map(
+      [...displayItemsWithEdits.value, ...stagedItems.value]
+        .map(item => [item.id, item])
+    ).values()
+  );
   });
 
   // fetch image collection { id, modified, type, title, file size}
