@@ -11,9 +11,9 @@ const props = withDefaults(
   defineProps<{
     // directus props
     value:
-      | (number | string | Record<string, any>)[]
-      | Record<string, any>
-      | null;
+    | (number | string | Record<string, any>)[]
+    | Record<string, any>
+    | null;
     primaryKey: string | number;
     collection: string;
     field: string;
@@ -162,40 +162,28 @@ const emitUpdate = () => {
 </script>
 
 <template>
-  <!-- Actions -->
-  <div class="actions">
-    <v-button @click="showLiveViewCaptureDrawer = true">Capture Image</v-button>
-  </div>
 
   <!-- Image list -->
   <div v-if="!loading" class="imageList">
-    <ImageList
-      :items="allItems"
-      @select="onSelectItem"
-      @delete="onDeleteItem"
-      @undelete="onUndeleteItem"
-    />
+    <ImageList :items="allItems" @select="onSelectItem" @delete="onDeleteItem" @undelete="onUndeleteItem" />
   </div>
 
   <!-- Image capture drawer -->
   <template v-if="showLiveViewCaptureDrawer">
-    <LiveImageDrawer
-      :folder="folder"
-      @close="closeLiveImageDrawer"
-      @item-saved="onItemSaved"
-      :deviceWidth="deviceWidth"
-      :deviceHeight="deviceHeight"
-    />
+    <LiveImageDrawer :folder="folder" @close="closeLiveImageDrawer" @item-saved="onItemSaved" :deviceWidth="deviceWidth"
+      :deviceHeight="deviceHeight" />
   </template>
 
   <!-- Image preview -->
   <template v-if="selectedItem">
-    <ImagePreviewDrawer
-      :fileObject="selectedItem as FileObjectItem"
-      @update="updateItem"
-      @close="closeImagePreviewDrawer"
-    />
+    <ImagePreviewDrawer :fileObject="selectedItem as FileObjectItem" @update="updateItem"
+      @close="closeImagePreviewDrawer" />
   </template>
+
+  <!-- Actions -->
+  <div class="actions">
+    <v-button @click="showLiveViewCaptureDrawer = true">Capture Image</v-button>
+  </div>
 </template>
 
 <style scoped>
