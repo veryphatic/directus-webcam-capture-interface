@@ -4,7 +4,7 @@
   "icon": "extension",
   "author": "Nathen Street (https://github.com/veryphatic/directus-webcam-capture-interface)",
   "license": "LGPL-3.0-or-later",
-  "version": "1.0.4",
+  "version": "1.1",
   "keywords": [
     "directus",
     "directus-extension",
@@ -25,19 +25,20 @@
     "build": "directus-extension build",
     "dev": "directus-extension build -w --no-minify",
     "link": "directus-extension link",
+		"validate": "directus-extension validate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "format": "prettier .  --write"
   },
   "devDependencies": {
-    "@directus/extensions-sdk": "11.0.1",
-    "@directus/types": "^10.1.6",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.20.1",
-    "prettier": "^3.2.4",
+    "@directus/extensions-sdk": "14.0.0",
+    "@directus/types": "^13.2.0",
+    "eslint": "^9.31.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-vue": "^10.3.0",
+    "prettier": "^3.6.2",
     "rollup-plugin-svg-import": "^3.0.0",
-    "typescript": "^5.4.2",
-    "vue": "^3.4.21"
+    "typescript": "^5.8.3",
+    "vue": "^3.5.17"
   },
   "repository": {
     "type": "git",
