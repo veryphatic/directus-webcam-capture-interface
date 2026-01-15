@@ -24,10 +24,12 @@ const props = withDefaults(
     folder: string;
     device_width: number;
     device_height: number;
+    compression_level: number;
   }>(),
   {
     device_width: 1920,
     device_height: 1080,
+    compression_level: 0,
   },
 );
 
@@ -39,6 +41,7 @@ const {
   folder,
   device_width: deviceWidth,
   device_height: deviceHeight,
+  compression_level: compressionLevel
 } = toRefs(props);
 
 const showLiveViewCaptureDrawer = ref(false);
@@ -171,7 +174,7 @@ const emitUpdate = () => {
   <!-- Image capture drawer -->
   <template v-if="showLiveViewCaptureDrawer">
     <LiveImageDrawer :folder="folder" @close="closeLiveImageDrawer" @item-saved="onItemSaved" :deviceWidth="deviceWidth"
-      :deviceHeight="deviceHeight" />
+      :deviceHeight="deviceHeight" :compressionLevel="compressionLevel" />
   </template>
 
   <!-- Image preview -->

@@ -8,6 +8,7 @@ const props = defineProps<{
   folder: string;
   deviceWidth: number;
   deviceHeight: number;
+  compressionLevel: number;
 }>();
 
 const emit = defineEmits<{
@@ -90,6 +91,7 @@ const uploadFile = async (
         @update="onUpdateImage"
         :deviceWidth="props.deviceWidth"
         :deviceHeight="props.deviceHeight"
+        :compressionLevel="props.compressionLevel"
       >
         <!-- Form slot -->
         <div class="imageMetaForm">

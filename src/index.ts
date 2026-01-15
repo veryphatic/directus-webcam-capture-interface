@@ -48,6 +48,21 @@ export default defineInterface({
 					default_value: 1080
 				}
 			},
+			{
+				field: 'compression_level',
+				name: 'Compression level',
+				type: 'integer',
+				meta: {
+					interface: 'slider',
+					min: 0,
+					max: 100,
+					width: 'full',
+					note: '0% = no compression, 100% = highly compressed'
+				},
+				schema: {
+					default_value: 0
+				}
+			},
 		]
 	},
 });

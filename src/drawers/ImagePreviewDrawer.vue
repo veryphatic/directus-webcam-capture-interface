@@ -22,6 +22,10 @@ const previewImageUrl = computed(() => {
   return `${window.location.origin}/assets/${fileObject.value.id}`;
 });
 
+const assetsLink = computed(() => {
+  return `${window.location.origin}/admin/files/${fileObject.value.id}`;
+})
+
 const closeDrawer = () => {
   emit("close");
 };
@@ -41,7 +45,7 @@ const saveChanges = () => {
     <template v-if="previewImageUrl">
       <div class="imageContainer">
         <img
-          :src="`${previewImageUrl}&cache-buster=${Date.now().toString()}`"
+          :src="`${previewImageUrl}?width=800`"
         />
 
         <div class="imageMetaForm">
@@ -59,8 +63,13 @@ const saveChanges = () => {
 
     <template #actions v-if="previewImageUrl">
       <v-button
+        :href="`${assetsLink}`"
+        target="_blank"
+        >Open image in Files Library
+      </v-button>
+      <v-button
         :download="fileObject?.id"
-        :href="`${previewImageUrl}&cache-buster=${Date.now().toString()}`"
+        :href="`${previewImageUrl}`"
         >Download
       </v-button>
       <v-button v-if="hasChanged" @click="saveChanges">Update</v-button>

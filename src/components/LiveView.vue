@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { watch } from "vue";
+import { computed, watch } from "vue";
 import { onUnmounted } from "vue";
 import { ref, onMounted, toRefs } from "vue";
 
 const props = defineProps<{
   deviceWidth: number;
   deviceHeight: number;
+  compressionLevel: number;
 }>();
 
-const { deviceWidth, deviceHeight } = toRefs(props);
+const { deviceWidth, deviceHeight, compressionLevel} = toRefs(props);
 
 const emit = defineEmits<{
   (e: "update", image: Blob): void;
@@ -48,6 +49,11 @@ onUnmounted(async () => {
 watch(savedImageBlob, (newValue) => {
   if (newValue) sendUpdates();
 });
+
+// remap the compression level 0-100% to 0 - 1
+const quality = computed(() => {
+  return 1.0 - (compressionLevel.value / 100);
+})
 
 const checkCameraPermission = async () => {
   try {
@@ -140,7 +146,7 @@ const takePhoto = () => {
       currentViewTab.value = "captured_image_view";
     },
     "image/jpeg",
-    1,
+    quality.value,
   );
 };
 

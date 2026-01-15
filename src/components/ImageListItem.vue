@@ -34,7 +34,7 @@ const previewImageUrl = computed(() => {
       >
         <div :style="{ display: 'flex', alignItems: 'center' }">
           <img
-            :src="`${previewImageUrl}&width=200&fit=contain&cache-buster=${Date.now().toString()}`"
+            :src="`${previewImageUrl}?height=80`"
             :style="{
               objectFit: 'contain',
               height: '80px',
