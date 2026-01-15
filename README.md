@@ -12,6 +12,7 @@ The **Webcam Capture Interface** is an extension for [Directus](https://directus
 - **User-Configurable Options**:
   - **Root Folder**: Set a default folder for uploading captured images.
   - **Camera Dimensions**: Configure the resolution of the captured images.
+  - **Compression Level**: Adjust the JPEG compression quality (0% to 100%, where 0% is no compression and 100% is highly compressed.) 
 
 ## Installation
 
